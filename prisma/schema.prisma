@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
+
+  @@map("accounts")
+}
