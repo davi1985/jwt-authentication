@@ -11,6 +11,8 @@ interface IInput {
 type IOutput = void
 
 export class SignUpUseCase {
+  constructor(private readonly passwordHasher: PasswordHasher) {}
+
   async execute({ name, email, password }: IInput): Promise<IOutput> {
     const accountAlreadyExists = await prismaClient.account.findUnique({
       where: { email },
@@ -19,8 +21,7 @@ export class SignUpUseCase {
     if (accountAlreadyExists)
       throw new AccountAlreadyExistsException('Account already exists')
 
-    const passwordHasher = new PasswordHasher()
-    const hashedPassword = await passwordHasher.createHash(password)
+    const hashedPassword = await this.passwordHasher.createHash(password)
 
     await prismaClient.account.create({
       data: {

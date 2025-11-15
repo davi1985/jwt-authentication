@@ -13,6 +13,11 @@ interface IOutput {
 }
 
 export class SignInUseCase {
+  constructor(
+    private readonly passwordHasher: PasswordHasher,
+    private readonly tokenGenerator: TokenGenerator,
+  ) {}
+
   async execute({ email, password }: IInput): Promise<IOutput> {
     const account = await prismaClient.account.findUnique({
       where: { email, password },
@@ -20,16 +25,14 @@ export class SignInUseCase {
 
     if (!account) throw new InvalidCredentialsException()
 
-    const validatePassword = new PasswordHasher()
-    const isPasswordValid = await validatePassword.verifyHash(
+    const isPasswordValid = await this.passwordHasher.verifyHash(
       password,
       account.password,
     )
 
     if (!isPasswordValid) throw new InvalidCredentialsException()
 
-    const tokenGenerator = new TokenGenerator()
-    const accessToken = tokenGenerator.generateToken(account.id)
+    const accessToken = this.tokenGenerator.generateToken(account.id)
 
     return { accessToken }
   }

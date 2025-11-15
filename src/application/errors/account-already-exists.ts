@@ -1,5 +1,5 @@
 export class AccountAlreadyExistsException extends Error {
-  constructor(message?: string) {
+  constructor(message = 'Account already exists') {
     super(message)
     this.name = 'AccountAlreadyExistsException'
   }
