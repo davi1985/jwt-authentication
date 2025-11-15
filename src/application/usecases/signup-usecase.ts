@@ -10,7 +10,7 @@ interface IInput {
 
 type IOutput = void
 
-export class SignupUseCase {
+export class SignUpUseCase {
   async execute({ name, email, password }: IInput): Promise<IOutput> {
     const accountAlreadyExists = await prismaClient.account.findUnique({
       where: { email },
