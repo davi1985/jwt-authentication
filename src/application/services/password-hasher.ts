@@ -1,11 +1,11 @@
-import bcrypt from 'bcryptjs/umd/types'
+import { hash, compare } from 'bcryptjs'
 
 export class PasswordHasher {
   createHash(password: string): Promise<string> {
-    return bcrypt.hash(password, 10)
+    return hash(password, 10)
   }
 
   verifyHash(password: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(password, hash)
+    return compare(password, hash)
   }
 }

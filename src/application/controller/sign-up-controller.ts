@@ -24,8 +24,8 @@ export class SignUpController implements IController {
         return {
           statusCode: statusCode.BAD_REQUEST,
           body: error.issues.map(({ message, path }) => ({
-            message,
             path: path.join('.'),
+            message,
           })),
         }
       }
