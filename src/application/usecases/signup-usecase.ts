@@ -1,6 +1,6 @@
-import { AccountAlreadyExistsError } from '../errors/account-already-exists'
+import { AccountAlreadyExistsException } from '../errors/account-already-exists'
 import { prismaClient } from '../libs/prisma-client'
-import { hash } from 'bcryptjs'
+import { PasswordHasher } from '../services/password-hasher'
 
 interface IInput {
   name: string
@@ -17,9 +17,10 @@ export class SignUpUseCase {
     })
 
     if (accountAlreadyExists)
-      throw new AccountAlreadyExistsError('Account already exists')
+      throw new AccountAlreadyExistsException('Account already exists')
 
-    const hashedPassword = await hash(password, 10)
+    const passwordHasher = new PasswordHasher()
+    const hashedPassword = await passwordHasher.createHash(password)
 
     await prismaClient.account.create({
       data: {
