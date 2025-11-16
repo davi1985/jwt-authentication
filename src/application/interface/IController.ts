@@ -5,6 +5,8 @@ type Body = Record<string, any>
 
 export interface IRequest {
   body: Body
+  params: Record<string, string>
+  accountId: string | undefined
 }
 
 export interface IResponse {
