@@ -2,10 +2,10 @@ import { IController, IRequest, IResponse } from '../interface/IController'
 
 export class ListLeadsController implements IController {
   async handle(request: IRequest): Promise<IResponse> {
-    console.log({ request })
     return {
       statusCode: 200,
       body: {
+        accountId: request.accountId,
         leads: [
           {
             id: '1',

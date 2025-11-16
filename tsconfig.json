@@ -20,22 +20,10 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@prisma/client": [
-        "./generated/prisma"
-      ]
+      "@prisma/client": ["./generated/prisma"]
     },
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*",
-    "generated/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts"
-  ]
+  "include": ["src/**/*", "generated/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }
