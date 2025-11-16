@@ -313,12 +313,3 @@ The API uses domain-driven error handling:
   - Response: `{ error: "Invalid access token." }`
 
 ---
-
-## Security Considerations
-
-- **Password Hashing**: Passwords are hashed using `bcryptjs` with salt rounds (default: 10)
-- **JWT Secret**: Must be a strong, random string stored in environment variables
-- **Token Expiration**: Access tokens expire after 1 day
-- **Bearer Token Format**: Tokens must be prefixed with `Bearer ` in the `Authorization` header
-- **HTTPS**: In production, always use HTTPS to protect tokens in transit
-- **CORS**: Configure CORS appropriately for your frontend domain
